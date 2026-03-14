@@ -4,6 +4,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.example.workshop_development_project.Database.Converters;

@@ -3,6 +3,7 @@ package com.example.workshop_development_project.Model;
 import android.graphics.Bitmap;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -16,7 +17,7 @@ public class Categorys {
     private String name;
     private Bitmap image;
     private int color;
-
+    @Ignore
     public Categorys(int id, int color, Bitmap image, String name) {
         this.id = id;
         this.color = color;

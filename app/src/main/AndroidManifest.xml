@@ -12,14 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Workshop_Development_Project">
         <activity
-            android:name=".MainActivity"
+            android:name=".splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <categorys android:name="android.intent.categorys.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
