@@ -4,23 +4,27 @@ import android.graphics.Bitmap;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
 
-@Entity(tableName = "category")
-public class Category {
+import com.example.workshop_development_project.Database.Converters;
+
+@Entity(tableName = "categorys")
+public class Categorys {
+    @TypeConverters(Converters.class)
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
     private Bitmap image;
     private int color;
 
-    public Category(int id, int color, Bitmap image, String name) {
+    public Categorys(int id, int color, Bitmap image, String name) {
         this.id = id;
         this.color = color;
         this.image = image;
         this.name = name;
     }
 
-    public Category(int color, Bitmap image, String name) {
+    public Categorys(int color, Bitmap image, String name) {
         this.color = color;
         this.image = image;
         this.name = name;

@@ -4,12 +4,16 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.workshop_development_project.Database.Converters;
 
 import java.util.Date;
 
-@Entity(tableName = "transaction"
-        ,foreignKeys = @ForeignKey(entity = Category.class,parentColumns = "id", childColumns = "categoryId"))
-public class Transaction {
+@Entity(tableName = "transactions"
+        ,foreignKeys = @ForeignKey(entity = Categorys.class,parentColumns = "id", childColumns = "categoryId"))
+public class Transactions {
+    @TypeConverters(Converters.class)
     @PrimaryKey(autoGenerate = true)
     private int id;
     private double amount;
@@ -19,7 +23,7 @@ public class Transaction {
     private String note;
 
     @Ignore
-    public Transaction(int id, Date date, String note, int categoryId, String type, double amount) {
+    public Transactions(int id, Date date, String note, int categoryId, String type, double amount) {
         this.id = id;
         this.date = date;
         this.note = note;
@@ -28,7 +32,7 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Transaction(double amount, String type, int categoryId, Date date, String note) {
+    public Transactions(double amount, String type, int categoryId, Date date, String note) {
         this.amount = amount;
         this.type = type;
         this.categoryId = categoryId;
