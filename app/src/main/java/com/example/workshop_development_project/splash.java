@@ -11,6 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.workshop_development_project.Onboardring.onBording;
+
 public class splash extends AppCompatActivity {
 
     ProgressBar progressBar;
@@ -46,7 +48,7 @@ public class splash extends AppCompatActivity {
                 handler.post(() -> progressBar.setProgress(progress));
             }
 
-            Intent intent = new Intent(splash.this, MainActivity.class);
+            Intent intent = new Intent(splash.this, onBording.class);
             startActivity(intent);
             finish();
 

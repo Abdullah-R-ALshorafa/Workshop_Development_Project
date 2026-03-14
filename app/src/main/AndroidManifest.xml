@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Workshop_Development_Project">
         <activity
+            android:name=".Onboardring.onBording"
+            android:exported="false" />
+        <activity
             android:name=".splash"
             android:exported="true">
             <intent-filter>
@@ -22,8 +25,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
     </application>
 
 </manifest>
