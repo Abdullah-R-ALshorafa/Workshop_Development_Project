@@ -1,5 +1,6 @@
 package com.example.workshop_development_project.Onboardring;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.workshop_development_project.MainActivity;
 import com.example.workshop_development_project.R;
 import com.example.workshop_development_project.databinding.FragmentOnBordScreen1FragmentBinding;
 
@@ -60,6 +62,10 @@ public class onBord_screen1_fragment extends Fragment {
             // Create the second fragment
             ViewPager2 viewPager = binding.getRoot().findViewById(R.id.onboardingViewPager);
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1); // move to next page
+        });
+        binding.skipBtn.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            getActivity().finish();
         });
 
         return binding.getRoot();

@@ -38,7 +38,7 @@ public class splash extends AppCompatActivity {
             while (progress <= 100) {
 
                 try {
-                    Thread.sleep(30); // speed of loading
+                    Thread.sleep(20); // speed of loading
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
