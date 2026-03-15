@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.workshop_development_project.R;
+import com.example.workshop_development_project.databinding.FragmentOnBordScreen3FragmentBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -60,7 +61,12 @@ public class onBord_screen3_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        FragmentOnBordScreen3FragmentBinding binding = FragmentOnBordScreen3FragmentBinding.inflate(inflater, container, false);
+        binding.nextBtn.setOnClickListener(v -> {
+
+                });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_on_bord_screen3_fragment, container, false);
+        return binding.getRoot();
     }
 }

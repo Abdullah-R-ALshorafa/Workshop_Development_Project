@@ -3,6 +3,7 @@ package com.example.workshop_development_project.Onboardring;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,22 +56,8 @@ public class onBord_screen2_fragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentOnBordScreen2FragmentBinding binding = FragmentOnBordScreen2FragmentBinding.inflate(inflater, container, false);
         binding.nextBtn.setOnClickListener(v -> {
-            // Create the second fragment
-            onBord_screen3_fragment therdFragment = new onBord_screen3_fragment();
-
-            // Replace the current fragment
-            requireActivity().getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(
-                            R.anim.slide_in_right, // enter animation
-                            R.anim.slide_out_left, // exit animation
-                            R.anim.slide_in_left,  // pop enter animation (back)
-                            R.anim.slide_out_right // pop exit animation (back)
-                    )
-                    .replace(R.id.fragment_container_onBord, therdFragment) // <-- your container id in activity
-                    .addToBackStack(null) // optional, allows back navigation
-                    .commit();
-            // Inflate the layout for this fragment
+            ViewPager2 viewPager = binding.getRoot().findViewById(R.id.onboardingViewPager);
+            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1); // move to next page
         });
 
         return binding.getRoot();
