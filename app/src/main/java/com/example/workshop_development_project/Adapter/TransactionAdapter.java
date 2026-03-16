@@ -7,8 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.workshop_development_project.Database.FinanceViewModel;
 import com.example.workshop_development_project.Model.Transactions;
 import com.example.workshop_development_project.R;
 import com.example.workshop_development_project.databinding.TranscationViewRecyclerBinding;

@@ -1,5 +1,6 @@
 package com.example.workshop_development_project.MainScreens;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.view.ViewGroup;
 
 //import com.example.workshop_development_project.Adapter.TransactionAdapter;
 import com.example.workshop_development_project.Adapter.TransactionAdapter;
+import com.example.workshop_development_project.AddTransactionActivity;
 import com.example.workshop_development_project.Database.FinanceRoomDatabase;
 import com.example.workshop_development_project.Database.FinanceViewModel;
 import com.example.workshop_development_project.Helper.TransactionType;
@@ -91,6 +93,11 @@ public class home_fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        binding.addTransactionFb.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), AddTransactionActivity.class);
+            startActivity(intent);
+        });
 
         recyclerView = view.findViewById(R.id.recyclerViewHome);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
