@@ -8,23 +8,25 @@ import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.example.workshop_development_project.Database.Converters;
+import com.example.workshop_development_project.Helper.TransactionType;
 
 import java.util.Date;
 
 @Entity(tableName = "transactions"
         ,foreignKeys = @ForeignKey(entity = Categorys.class,parentColumns = "id", childColumns = "categoryId"))
 public class Transactions {
-    @TypeConverters(Converters.class)
+
     @PrimaryKey(autoGenerate = true)
     private int id;
     private double amount;
-    private String type;
+    private TransactionType type;
     private int categoryId;
+    @TypeConverters(Converters.class)
     private Date date;
     private String note;
 
     @Ignore
-    public Transactions(int id,double amount,String type,int categoryId, Date date, String note) {
+    public Transactions(int id,double amount,TransactionType type,int categoryId, Date date, String note) {
         this.id = id;
         this.date = date;
         this.note = note;
@@ -33,7 +35,7 @@ public class Transactions {
         this.amount = amount;
     }
 
-    public Transactions(double amount, String type, int categoryId, Date date, String note) {
+    public Transactions(double amount, TransactionType type, int categoryId, Date date, String note) {
         this.amount = amount;
         this.type = type;
         this.categoryId = categoryId;
@@ -57,11 +59,11 @@ public class Transactions {
         this.id = id;
     }
 
-    public String getType() {
+    public TransactionType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TransactionType type) {
         this.type = type;
     }
 

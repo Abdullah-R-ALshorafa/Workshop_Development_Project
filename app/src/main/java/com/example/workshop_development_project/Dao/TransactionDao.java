@@ -16,15 +16,29 @@ import java.util.List;
 public interface TransactionDao {
     @Insert
     void insertTransaction(Transactions transaction);
+
     @Update
     void updateTransaction(Transactions transaction);
+
     @Delete
     void deleteTransaction(Transactions transaction);
+
     @Query("SELECT * FROM Transactions ORDER BY DATE DESC ")
     LiveData<List<Transactions>> getAllTransaction();
+
     @Query("SELECT * FROM  Transactions WHERE type = :type")
     LiveData<List<Transactions>> getTransactionsByType(String type);
 
     @Query("SELECT * FROM Transactions WHERE categoryId = :categoryId")
     LiveData<List<Transactions>> getTransactionsByCategory(int categoryId);
+
+    @Query("SELECT SUM(amount) FROM transactions WHERE type='INCOME'")
+    LiveData<Double> getTransactionsIncome();
+
+    @Query("SELECT SUM(amount) FROM transactions WHERE type='EXPENSE'")
+    LiveData<Double> getTransactionsExpence();
+
+    @Query("SELECT SUM(CASE WHEN type = 'INCOME' THEN amount ELSE -amount END) FROM transactions")
+    LiveData<Double> getBalance();
+
 }

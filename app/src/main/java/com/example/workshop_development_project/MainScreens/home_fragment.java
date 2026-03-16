@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import com.example.workshop_development_project.Adapter.TransactionAdapter;
 import com.example.workshop_development_project.Database.FinanceRoomDatabase;
 import com.example.workshop_development_project.Database.FinanceViewModel;
+import com.example.workshop_development_project.Helper.TransactionType;
 import com.example.workshop_development_project.Model.Categorys;
 import com.example.workshop_development_project.Model.Transactions;
 import com.example.workshop_development_project.R;
@@ -38,6 +39,7 @@ import java.util.List;
 public class home_fragment extends Fragment {
     RecyclerView recyclerView;
     TransactionAdapter adapter;
+    FragmentHomeFragmentBinding binding;
     ArrayList<Transactions> transactions;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,7 +84,7 @@ public class home_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentHomeFragmentBinding binding = FragmentHomeFragmentBinding.inflate(inflater, container, false);
+        binding = FragmentHomeFragmentBinding.inflate(inflater, container, false);
 
         return binding.getRoot();
     }
@@ -100,7 +102,31 @@ public class home_fragment extends Fragment {
         FinanceViewModel model = new ViewModelProvider(this).get(FinanceViewModel.class);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.groceries_icon);
         model.insertCategory(new Categorys("buy a house", Color.CYAN,bitmap));
-        model.insertTransaction(new Transactions(550, "expance",1,new Date(),"hararh"));
+        model.insertTransaction(new Transactions(550, TransactionType.INCOME,2,new Date(),"hararh"));
+
+
+        model.getTransactionsEpense().observe(getViewLifecycleOwner(), total -> {
+
+            if(total == null) total = 0.0;
+
+            binding.tvExpense.setText(String.valueOf(total));
+
+        });
+
+        model.gitBalance().observe(getViewLifecycleOwner(), balance -> {
+
+            if(balance == null) balance = 0.0;
+
+            binding.tvBalance.setText("$" + balance);
+
+        });
+        model.getTransactionsIncome().observe(getViewLifecycleOwner(), balance -> {
+
+            if(balance == null) balance = 0.0;
+
+            binding.revenueValue.setText("$" + balance);
+
+        });
 
 
         model.getAllTransaction().observe(getViewLifecycleOwner(), list -> {

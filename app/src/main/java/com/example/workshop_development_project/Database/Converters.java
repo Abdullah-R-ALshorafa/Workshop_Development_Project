@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 
 import androidx.room.TypeConverter;
 
+import com.example.workshop_development_project.Helper.TransactionType;
+
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
@@ -31,5 +33,14 @@ public class Converters {
     public static Bitmap toBitmap(byte[] byteArray) {
         if (byteArray == null) return null;
         return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+    }
+    @TypeConverter
+    public static String fromTransactionType(TransactionType type) {
+        return type == null ? null : type.name();
+    }
+
+    @TypeConverter
+    public static TransactionType toTransactionType(String value) {
+        return value == null ? null : TransactionType.valueOf(value);
     }
 }

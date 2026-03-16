@@ -57,6 +57,17 @@ public class FinanceRepository {
         return transactionDao.getTransactionsByType(type);
     }
 
+    LiveData<Double> getTransactionsIncome( ){
+        return transactionDao.getTransactionsIncome();
+    }
+    LiveData<Double> getTransactionsEpense(){
+        return transactionDao.getTransactionsExpence();
+    }
+    LiveData<Double> getBalance(){
+        return transactionDao.getBalance();
+    }
+
+
     LiveData<List<Transactions>> getTransactionsByCategory(int categoryId){
         return transactionDao.getTransactionsByCategory(categoryId);
     }

@@ -44,6 +44,16 @@ public class FinanceViewModel extends AndroidViewModel {
         return repository.getTransactionsByCategory(categoryId);
     }
 
+    public LiveData<Double> getTransactionsIncome( ){
+        return repository.getTransactionsIncome();
+    }
+    public LiveData<Double> getTransactionsEpense(){
+        return repository.getTransactionsEpense();
+    }
+    public LiveData<Double> gitBalance(){
+        return repository.getBalance();
+    }
+
 
     public void insertCategory(Categorys categorys) {
         repository.insertCategory(categorys);
