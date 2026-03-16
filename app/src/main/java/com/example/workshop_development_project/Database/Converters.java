@@ -9,29 +9,27 @@ import java.io.ByteArrayOutputStream;
 import java.util.Date;
 
 public class Converters {
+    @TypeConverter
+    public static Date fromTimestamp(Long value) {
+        return value == null ? null : new Date(value);
+    }
 
     @TypeConverter
-    public long toLong(Date date) {
-        return date.getTime();
+    public static Long dateToTimestamp(Date date) {
+        return date == null ? null : date.getTime();
     }
+
     @TypeConverter
-    public Date toDate(long date) {
-        return new Date(date);
-    }
-    @TypeConverter
-    public static byte[] getBitmapAsByteArray(Bitmap bitmap) {
+    public static byte[] fromBitmap(Bitmap bitmap) {
         if (bitmap == null) return null;
-
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
         return outputStream.toByteArray();
     }
 
     @TypeConverter
-    public static Bitmap getByteArrayAsBitmap(byte[] bytes) {
-        if (bytes == null) return null;
-
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    public static Bitmap toBitmap(byte[] byteArray) {
+        if (byteArray == null) return null;
+        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
     }
 }
-

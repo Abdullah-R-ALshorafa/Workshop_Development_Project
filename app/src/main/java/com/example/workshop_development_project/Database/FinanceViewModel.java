@@ -20,44 +20,44 @@ public class FinanceViewModel extends AndroidViewModel {
     }
 
 
-    void insertTransaction(Transactions transaction) {
+    public void insertTransaction(Transactions transaction) {
         repository.insertTransaction(transaction);
     }
 
-    void updateTransaction(Transactions transaction) {
+    public void updateTransaction(Transactions transaction) {
         repository.updateTransaction(transaction);
     }
 
-    void deleteTransaction(Transactions transaction) {
+    public void deleteTransaction(Transactions transaction) {
         repository.deleteTransaction(transaction);
     }
 
-    LiveData<List<Transactions>> getAllTransaction() {
+    public LiveData<List<Transactions>> getAllTransaction() {
         return repository.getAllTransaction();
     }
 
-    LiveData<List<Transactions>> getTransactionsByType(String type) {
+    public LiveData<List<Transactions>> getTransactionsByType(String type) {
         return repository.getTransactionsByType(type);
     }
 
-    LiveData<List<Transactions>> getTransactionsByCategory(int categoryId) {
+    public LiveData<List<Transactions>> getTransactionsByCategory(int categoryId) {
         return repository.getTransactionsByCategory(categoryId);
     }
 
 
-    void insertCategory(Categorys categorys) {
+    public void insertCategory(Categorys categorys) {
         repository.insertCategory(categorys);
     }
 
-    void updateCategory(Categorys categorys) {
+    public void updateCategory(Categorys categorys) {
         repository.updateCategory(categorys);
     }
 
-    void deleteCategory(Categorys categorys) {
+    public void deleteCategory(Categorys categorys) {
         repository.deleteCategory(categorys);
     }
 
-    LiveData<List<Categorys>> getAllCategory() {
+    public LiveData<List<Categorys>> getAllCategory() {
         return repository.getAllCategory();
     }
 }

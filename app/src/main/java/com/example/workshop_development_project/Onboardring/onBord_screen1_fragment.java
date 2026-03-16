@@ -60,8 +60,11 @@ public class onBord_screen1_fragment extends Fragment {
         FragmentOnBordScreen1FragmentBinding binding = FragmentOnBordScreen1FragmentBinding.inflate(inflater, container,false);
         binding.nextBtn.setOnClickListener(v -> {
             // Create the second fragment
-            ViewPager2 viewPager = binding.getRoot().findViewById(R.id.onboardingViewPager);
-            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1); // move to next page
+            ViewPager2 viewPager = getActivity().findViewById(R.id.onboardingViewPager);
+            if (viewPager != null) {
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1,true); // move to next page
+
+            }
         });
         binding.skipBtn.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), MainActivity.class));

@@ -24,7 +24,7 @@ public class Transactions {
     private String note;
 
     @Ignore
-    public Transactions(int id, Date date, String note, int categoryId, String type, double amount) {
+    public Transactions(int id,double amount,String type,int categoryId, Date date, String note) {
         this.id = id;
         this.date = date;
         this.note = note;

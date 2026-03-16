@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.LayoutInflater;
-import android.view.View;
+import android.view. View;
 import android.view.ViewGroup;
 
 import com.example.workshop_development_project.MainActivity;
@@ -58,8 +58,10 @@ public class onBord_screen2_fragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentOnBordScreen2FragmentBinding binding = FragmentOnBordScreen2FragmentBinding.inflate(inflater, container, false);
         binding.nextBtn.setOnClickListener(v -> {
-            ViewPager2 viewPager = binding.getRoot().findViewById(R.id.onboardingViewPager);
-            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1); // move to next page
+            ViewPager2 viewPager = getActivity().findViewById(R.id.onboardingViewPager);
+            if (viewPager != null) {
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true); // move to next page
+            }
         });
         binding.skipBtn.setOnClickListener(v -> {
             startActivity(new Intent(getActivity(), MainActivity.class));
