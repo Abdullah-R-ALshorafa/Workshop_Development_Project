@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/AppBackgroundColor"
+    tools:context=".MainScreens.Transaction_fragment">
+
+    <TextView
+        android:id="@+id/transactionTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="60dp"
+        android:text="Transaction"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/notificationIv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/notificationIv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/notification_shape"
+        android:padding="4dp"
+        android:src="@drawable/notification_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/transactionTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/transactionTv" />
+
+    <ImageView
+        android:id="@+id/backArrowIv"
+        android:layout_width="20dp"
+        android:layout_height="17dp"
+
+        android:layout_marginStart="36dp"
+        android:src="@drawable/back_arrow_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/transactionTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/transactionTv" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardTotalMoney"
+        android:layout_width="357dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="@id/notificationIv"
+        app:layout_constraintStart_toStartOf="@id/backArrowIv"
+        app:layout_constraintTop_toBottomOf="@id/transactionTv">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+
+            >
+
+            <TextView
+                android:id="@+id/balanceTotalTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="12dp"
+                android:text="Total Balance"
+                android:textColor="#1F1F1F"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/balanceMoneyTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:text="$7,783.00"
+                android:textColor="#1F1F1F"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/incomeExpenseContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/notificationIv"
+        app:layout_constraintStart_toStartOf="@id/backArrowIv"
+        app:layout_constraintTop_toBottomOf="@id/cardTotalMoney">
+
+        <!-- Income Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#E9EFEA"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:backgroundTint="@color/green"
+                    android:src="@drawable/balance_arrow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Income"
+                    android:textColor="#1F1F1F"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/incomeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$4,120.00"
+                    android:textColor="#1F1F1F"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- Expense Card -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:backgroundTint="#E9EFEA"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:src="@drawable/expense_arrow" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Expense"
+                    android:textColor="#1F1F1F"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/expenseTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$1,187.40"
+                    android:textColor="#2979FF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/chipGroupFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:weightSum="3"
+        app:layout_constraintTop_toBottomOf="@id/incomeExpenseContainer"
+        >
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipType"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Type"
+            android:textAlignment="center"
+            android:layout_weight="1"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipCategory"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Category"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="8dp"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipDate"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:checkable="true"
+            android:text="Date"
+            android:textAlignment="center"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chipGroupFilter">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="1dp"
+            android:background="@drawable/card_corners"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewHome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

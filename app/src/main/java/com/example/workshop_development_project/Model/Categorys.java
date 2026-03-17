@@ -3,28 +3,25 @@ package com.example.workshop_development_project.Model;
 import android.graphics.Bitmap;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverters;
-
-import com.example.workshop_development_project.Database.Converters;
 
 @Entity(tableName = "categorys")
 public class Categorys {
-    @TypeConverters(Converters.class)
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String name;
     private Bitmap image;
     private int color;
-
-    public Categorys(int id, int color, Bitmap image, String name) {
+    @Ignore
+    public Categorys(int id,String name, int color, Bitmap image) {
         this.id = id;
         this.color = color;
         this.image = image;
         this.name = name;
     }
 
-    public Categorys(int color, Bitmap image, String name) {
+    public Categorys( String name, int color, Bitmap image) {
         this.color = color;
         this.image = image;
         this.name = name;

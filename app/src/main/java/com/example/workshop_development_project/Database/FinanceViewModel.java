@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.workshop_development_project.Model.Categorys;
+import com.example.workshop_development_project.Model.TransactionWithCategory;
 import com.example.workshop_development_project.Model.Transactions;
 
 import java.util.List;
@@ -20,44 +21,65 @@ public class FinanceViewModel extends AndroidViewModel {
     }
 
 
-    void insertTransaction(Transactions transaction) {
+    public void insertTransaction(Transactions transaction) {
         repository.insertTransaction(transaction);
     }
 
-    void updateTransaction(Transactions transaction) {
+    public void updateTransaction(Transactions transaction) {
         repository.updateTransaction(transaction);
     }
 
-    void deleteTransaction(Transactions transaction) {
+    public void deleteTransaction(Transactions transaction) {
         repository.deleteTransaction(transaction);
     }
 
-    LiveData<List<Transactions>> getAllTransaction() {
+    public LiveData<List<Transactions>> getAllTransaction() {
         return repository.getAllTransaction();
     }
+    public LiveData<List<TransactionWithCategory>> getTransactionsWithCategory(){
+        return repository.getTransactionsWithCategory();
+    }
 
-    LiveData<List<Transactions>> getTransactionsByType(String type) {
+    public LiveData<List<TransactionWithCategory>> getMonthlyTransactions() {
+        return repository.getMonthlyTransactions();
+    }
+
+    public LiveData<List<TransactionWithCategory>> getYearlyTransactions() {
+        return repository.getYearlyTransactions();
+    }
+
+    public LiveData<List<Transactions>> getTransactionsByType(String type) {
         return repository.getTransactionsByType(type);
     }
 
-    LiveData<List<Transactions>> getTransactionsByCategory(int categoryId) {
+    public LiveData<List<Transactions>> getTransactionsByCategory(int categoryId) {
         return repository.getTransactionsByCategory(categoryId);
     }
 
+    public LiveData<Double> getTransactionsIncome( ){
+        return repository.getTransactionsIncome();
+    }
+    public LiveData<Double> getTransactionsEpense(){
+        return repository.getTransactionsEpense();
+    }
+    public LiveData<Double> gitBalance(){
+        return repository.getBalance();
+    }
 
-    void insertCategory(Categorys categorys) {
+
+    public void insertCategory(Categorys categorys) {
         repository.insertCategory(categorys);
     }
 
-    void updateCategory(Categorys categorys) {
+    public void updateCategory(Categorys categorys) {
         repository.updateCategory(categorys);
     }
 
-    void deleteCategory(Categorys categorys) {
+    public void deleteCategory(Categorys categorys) {
         repository.deleteCategory(categorys);
     }
 
-    LiveData<List<Categorys>> getAllCategory() {
+    public LiveData<List<Categorys>> getAllCategory() {
         return repository.getAllCategory();
     }
 }

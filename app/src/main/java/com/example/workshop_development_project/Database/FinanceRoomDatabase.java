@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.example.workshop_development_project.Dao.CategoryDao;
 import com.example.workshop_development_project.Dao.TransactionDao;
@@ -14,7 +15,8 @@ import com.example.workshop_development_project.Model.Transactions;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Transactions.class, Categorys.class}, version = 1, exportSchema = false)
+@Database(entities = {Transactions.class, Categorys.class}, version = 2, exportSchema = false)
+@TypeConverters({Converters.class})
 public abstract class FinanceRoomDatabase extends RoomDatabase {
 
     public abstract TransactionDao transactionDao();
@@ -31,6 +33,7 @@ public abstract class FinanceRoomDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     FinanceRoomDatabase.class, "finance_database")
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
