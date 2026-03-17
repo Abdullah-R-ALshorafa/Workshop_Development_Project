@@ -25,8 +25,32 @@ public interface TransactionDao {
     void deleteTransaction(Transactions transaction);
 
     @Transaction
-    @Query("SELECT * FROM transactions")
+    @Query("SELECT * FROM transactions ORDER BY date DESC")
     LiveData<List<TransactionWithCategory>> getTransactionsWithCategory();
+
+    @Transaction
+    @Query("SELECT * FROM transactions ORDER BY date ASC")
+    LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryAsc();
+
+    @Transaction
+    @Query("SELECT * FROM transactions WHERE type = :type ORDER BY date ASC")
+    LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryByTypeAsc(String type);
+
+    @Transaction
+    @Query("SELECT * FROM transactions WHERE type = :type ORDER BY date DESC")
+    LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryByType(String type);
+
+    @Transaction
+    @Query("SELECT * FROM transactions WHERE categoryId = :categoryId ORDER BY date DESC")
+    LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryByCategory(int categoryId);
+
+    @Transaction
+    @Query("SELECT * FROM transactions WHERE strftime('%Y-%m-%d', date / 1000, 'unixepoch') = :dateStr ORDER BY date DESC")
+    LiveData<List<TransactionWithCategory>> getTransactionsByDate(String dateStr);
+
+    @Transaction
+    @Query("SELECT transactions.* FROM transactions LEFT JOIN categorys ON transactions.categoryId = categorys.id WHERE transactions.note LIKE '%' || :query || '%' OR categorys.name LIKE '%' || :query || '%' ORDER BY transactions.date DESC")
+    LiveData<List<TransactionWithCategory>> searchTransactions(String query);
 
     @Transaction
     @Query("SELECT * FROM transactions WHERE strftime('%m-%Y', date / 1000, 'unixepoch') = strftime('%m-%Y', 'now')")

@@ -5,11 +5,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.workshop_development_project.Database.FinanceViewModel;
@@ -33,6 +29,8 @@ public class AddTransactionActivity extends AppCompatActivity {
     FinanceViewModel viewModel;
     ArrayAdapter<String> adapter;
     List<Categorys> categoryList = new ArrayList<>();
+    
+    private int transactionId = -1; // -1 means adding new, otherwise editing
 
 
     @Override
@@ -42,26 +40,41 @@ public class AddTransactionActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(FinanceViewModel.class);
+        
+        // Check if we are in Edit mode
+        if (getIntent().hasExtra("id")) {
+            transactionId = getIntent().getIntExtra("id", -1);
+            binding.saveBtn.setText("Update");
+            loadTransactionData();
+        }
+
         viewModel.getAllCategory().observe(this, categorys -> {
             categoryList = categorys;
-
             List<String> names = new ArrayList<>();
             for (Categorys c : categorys) {
                 names.add(c.getName());
             }
 
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, names);
-
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
             binding.categorySpinner.setAdapter(adapter);
+            
+            // If editing, set the spinner to correct category after list loads
+            if (transactionId != -1) {
+                int categoryId = getIntent().getIntExtra("categoryId", -1);
+                for (int i = 0; i < categoryList.size(); i++) {
+                    if (categoryList.get(i).getId() == categoryId) {
+                        binding.categorySpinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
         });
 
         binding.saveBtn.setOnClickListener(v -> {
-
             String amountText = binding.amountEt.getText().toString();
             String note = binding.noteEt.getText().toString();
-            String dateText = binding.dateEt.getText().toString();
+            String dateString = binding.dateEt.getText().toString();
 
             if(amountText.isEmpty()){
                 binding.amountEt.setError("Enter amount");
@@ -70,23 +83,18 @@ public class AddTransactionActivity extends AppCompatActivity {
 
             double amount = Double.parseDouble(amountText);
 
-            TransactionType type;
-            if(binding.incomeRb.isChecked()){
-                type = TransactionType.INCOME;
-            }else{
-                type = TransactionType.EXPENSE;
-            }
+            TransactionType type = binding.incomeRb.isChecked() ? TransactionType.INCOME : TransactionType.EXPENSE;
 
             int position = binding.categorySpinner.getSelectedItemPosition();
-            Categorys selectedCategory = categoryList.get(position);
-            int categoryId = selectedCategory.getId();
+            if (position < 0) return;
+            int categoryId = categoryList.get(position).getId();
 
-            String dateString  = binding.dateEt.getText().toString();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());            Date date = new Date(); // fallback in case parsing fails
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date date;
             try {
                 date = sdf.parse(dateString);
             } catch (ParseException e) {
-                e.printStackTrace();
+                date = new Date();
             }
 
             Transactions transaction = new Transactions(
@@ -97,40 +105,48 @@ public class AddTransactionActivity extends AppCompatActivity {
                     note
             );
 
-            viewModel.insertTransaction(transaction);
-
-            Toast.makeText(this,"Transaction Added",Toast.LENGTH_SHORT).show();
+            if (transactionId != -1) {
+                transaction.setId(transactionId);
+                viewModel.updateTransaction(transaction);
+                Toast.makeText(this, "Transaction Updated", Toast.LENGTH_SHORT).show();
+            } else {
+                viewModel.insertTransaction(transaction);
+                Toast.makeText(this, "Transaction Added", Toast.LENGTH_SHORT).show();
+            }
 
             finish();
-
         });
 
         binding.dateEt.setOnClickListener(v -> {
             calendar = Calendar.getInstance();
+            // If date exists, set it in picker
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                Date d = sdf.parse(binding.dateEt.getText().toString());
+                if (d != null) calendar.setTime(d);
+            } catch (Exception ignored) {}
 
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePicker = new DatePickerDialog(
-                    AddTransactionActivity.this,
-                    (view, selectedYear, selectedMonth, selectedDay) -> {
-
-                        String date = String.format(Locale.getDefault(), "%02d/%02d/%04d",
-                                selectedDay,
-                                selectedMonth + 1,
-                                selectedYear);
-                        binding.dateEt.setText(date);
-
-                    },
-                    year,
-                    month,
-                    day
-            );
-
-            datePicker.show();
-
+            new DatePickerDialog(this, (view, year, month, day) -> {
+                binding.dateEt.setText(String.format(Locale.getDefault(), "%02d/%02d/%04d", day, month + 1, year));
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
         });
+    }
 
+    private void loadTransactionData() {
+        binding.amountEt.setText(String.valueOf(getIntent().getDoubleExtra("amount", 0.0)));
+        binding.noteEt.setText(getIntent().getStringExtra("note"));
+        
+        long timestamp = getIntent().getLongExtra("date", 0);
+        if (timestamp != 0) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            binding.dateEt.setText(sdf.format(new Date(timestamp)));
+        }
+
+        String type = getIntent().getStringExtra("type");
+        if ("INCOME".equalsIgnoreCase(type)) {
+            binding.incomeRb.setChecked(true);
+        } else {
+            binding.expenseRb.setChecked(true);
+        }
     }
 }

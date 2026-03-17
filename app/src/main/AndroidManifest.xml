@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Workshop_Development_Project">
         <activity
+            android:name=".TransactionDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".AddTransactionActivity"
             android:exported="false"/>
         <activity

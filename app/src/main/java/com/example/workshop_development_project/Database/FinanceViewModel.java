@@ -40,6 +40,30 @@ public class FinanceViewModel extends AndroidViewModel {
         return repository.getTransactionsWithCategory();
     }
 
+    public LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryAsc(){
+        return repository.getTransactionsWithCategoryAsc();
+    }
+
+    public LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryByType(String type){
+        return repository.getTransactionsWithCategoryByType(type);
+    }
+
+    public LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryByTypeAsc(String type) {
+        return repository.getTransactionsWithCategoryByTypeAsc(type);
+    }
+
+    public LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryByCategory(int categoryId) {
+        return repository.getTransactionsWithCategoryByCategory(categoryId);
+    }
+
+    public LiveData<List<TransactionWithCategory>> getTransactionsByDate(String dateStr) {
+        return repository.getTransactionsByDate(dateStr);
+    }
+
+    public LiveData<List<TransactionWithCategory>> searchTransactions(String query) {
+        return repository.searchTransactions(query);
+    }
+
     public LiveData<List<TransactionWithCategory>> getMonthlyTransactions() {
         return repository.getMonthlyTransactions();
     }
