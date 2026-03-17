@@ -286,6 +286,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/statsCard">
+                <Button
+                    android:id="@+id/showAllBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="#16BFA1"
+                    android:text="All"
+                    android:textColor="@color/black" />
 
 
                 <Button
@@ -302,7 +310,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:backgroundTint="#16BFA1"
+                    android:backgroundTint="#DDF5E0"
                     android:text="Yearly"
                     android:textColor="@color/black" />
             </LinearLayout>

@@ -1,148 +1,131 @@
 package com.example.workshop_development_project.MainScreens;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Transaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-//import com.example.workshop_development_project.Adapter.TransactionAdapter;
 import com.example.workshop_development_project.Adapter.TransactionAdapter;
 import com.example.workshop_development_project.AddTransactionActivity;
-import com.example.workshop_development_project.Database.FinanceRoomDatabase;
 import com.example.workshop_development_project.Database.FinanceViewModel;
-import com.example.workshop_development_project.Helper.TransactionType;
-import com.example.workshop_development_project.Model.Categorys;
-import com.example.workshop_development_project.Model.Transactions;
+import com.example.workshop_development_project.Model.TransactionWithCategory;
 import com.example.workshop_development_project.R;
 import com.example.workshop_development_project.databinding.FragmentHomeFragmentBinding;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link home_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class home_fragment extends Fragment {
     RecyclerView recyclerView;
     TransactionAdapter adapter;
     FragmentHomeFragmentBinding binding;
-    ArrayList<Transactions> transactions;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ArrayList<TransactionWithCategory> transactionsList = new ArrayList<>();
+    FinanceViewModel model;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    // To keep track of current observer
+    private LiveData<List<TransactionWithCategory>> currentLiveData;
 
     public home_fragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment home_fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static home_fragment newInstance(String param1, String param2) {
-        home_fragment fragment = new home_fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentHomeFragmentBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        model = new ViewModelProvider(this).get(FinanceViewModel.class);
 
         binding.addTransactionFb.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), AddTransactionActivity.class);
             startActivity(intent);
         });
 
-        recyclerView = view.findViewById(R.id.recyclerViewHome);
+        recyclerView = binding.recyclerViewHome;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        ArrayList<Transactions> transactions = new ArrayList<>();
-        adapter = new TransactionAdapter(transactions);
+        adapter = new TransactionAdapter(transactionsList);
         recyclerView.setAdapter(adapter);
 
-        FinanceViewModel model = new ViewModelProvider(this).get(FinanceViewModel.class);
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.groceries_icon);
-        model.insertCategory(new Categorys("buy a house", Color.CYAN,bitmap));
-        model.insertTransaction(new Transactions(550, TransactionType.INCOME,2,new Date(),"hararh"));
-
-
+        // Observe Totals
         model.getTransactionsEpense().observe(getViewLifecycleOwner(), total -> {
-
-            if(total == null) total = 0.0;
-
-            binding.tvExpense.setText(String.valueOf(total));
-
+            if (total == null) total = 0.0;
+            binding.tvExpense.setText("-$" + total);
         });
 
         model.gitBalance().observe(getViewLifecycleOwner(), balance -> {
-
-            if(balance == null) balance = 0.0;
-
+            if (balance == null) balance = 0.0;
             binding.tvBalance.setText("$" + balance);
-
-        });
-        model.getTransactionsIncome().observe(getViewLifecycleOwner(), balance -> {
-
-            if(balance == null) balance = 0.0;
-
-            binding.revenueValue.setText("$" + balance);
-
         });
 
+        model.getTransactionsIncome().observe(getViewLifecycleOwner(), income -> {
+            if (income == null) income = 0.0;
+            binding.revenueValue.setText("$" + income);
+        });
 
-        model.getAllTransaction().observe(getViewLifecycleOwner(), list -> {
+        // Click Listeners
+        binding.showAllBtn.setOnClickListener(v -> showAll());
+        binding.monthSortBtn.setOnClickListener(v -> showMonthly());
+        binding.yearSortBtn.setOnClickListener(v -> showYearly());
 
-            transactions.clear();
-            transactions.addAll(list);
+        // Default: Show all
+        showAll();
+    }
 
+    private void showAll() {
+        updateButtonColors(0);
+        observeTransactions(model.getTransactionsWithCategory());
+    }
+
+    private void showMonthly() {
+        updateButtonColors(1);
+        observeTransactions(model.getMonthlyTransactions());
+    }
+
+    private void showYearly() {
+        updateButtonColors(2);
+        observeTransactions(model.getYearlyTransactions());
+    }
+
+    private void observeTransactions(LiveData<List<TransactionWithCategory>> liveData) {
+        // Remove previous observer if any to prevent duplicates
+        if (currentLiveData != null) {
+            currentLiveData.removeObservers(getViewLifecycleOwner());
+        }
+
+        currentLiveData = liveData;
+        currentLiveData.observe(getViewLifecycleOwner(), list -> {
+            transactionsList.clear();
+            if (list != null) {
+                transactionsList.addAll(list);
+            }
             adapter.notifyDataSetChanged();
-
         });
+    }
+
+    private void updateButtonColors(int selection) {
+        // 0: All, 1: Month, 2: Year
+        int selectedColor = Color.parseColor("#16C1A2");
+        int unselectedColor = Color.parseColor("#DDF5E0");
+
+        binding.showAllBtn.setBackgroundTintList(ColorStateList.valueOf(selection == 0 ? selectedColor : unselectedColor));
+        binding.monthSortBtn.setBackgroundTintList(ColorStateList.valueOf(selection == 1 ? selectedColor : unselectedColor));
+        binding.yearSortBtn.setBackgroundTintList(ColorStateList.valueOf(selection == 2 ? selectedColor : unselectedColor));
     }
 }

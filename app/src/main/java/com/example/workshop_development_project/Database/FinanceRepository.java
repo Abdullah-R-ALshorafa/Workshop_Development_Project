@@ -11,6 +11,7 @@ import androidx.room.Update;
 import com.example.workshop_development_project.Dao.CategoryDao;
 import com.example.workshop_development_project.Dao.TransactionDao;
 import com.example.workshop_development_project.Model.Categorys;
+import com.example.workshop_development_project.Model.TransactionWithCategory;
 import com.example.workshop_development_project.Model.Transactions;
 
 import java.util.List;
@@ -55,6 +56,17 @@ public class FinanceRepository {
     }
     LiveData<List<Transactions>> getTransactionsByType(String type){
         return transactionDao.getTransactionsByType(type);
+    }
+    LiveData<List<TransactionWithCategory>> getTransactionsWithCategory(){
+        return transactionDao.getTransactionsWithCategory();
+    }
+
+    LiveData<List<TransactionWithCategory>> getMonthlyTransactions() {
+        return transactionDao.getMonthlyTransactions();
+    }
+
+    LiveData<List<TransactionWithCategory>> getYearlyTransactions() {
+        return transactionDao.getYearlyTransactions();
     }
 
     LiveData<Double> getTransactionsIncome( ){

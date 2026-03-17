@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.workshop_development_project.Model.Categorys;
+import com.example.workshop_development_project.Model.TransactionWithCategory;
 import com.example.workshop_development_project.Model.Transactions;
 
 import java.util.List;
@@ -34,6 +35,17 @@ public class FinanceViewModel extends AndroidViewModel {
 
     public LiveData<List<Transactions>> getAllTransaction() {
         return repository.getAllTransaction();
+    }
+    public LiveData<List<TransactionWithCategory>> getTransactionsWithCategory(){
+        return repository.getTransactionsWithCategory();
+    }
+
+    public LiveData<List<TransactionWithCategory>> getMonthlyTransactions() {
+        return repository.getMonthlyTransactions();
+    }
+
+    public LiveData<List<TransactionWithCategory>> getYearlyTransactions() {
+        return repository.getYearlyTransactions();
     }
 
     public LiveData<List<Transactions>> getTransactionsByType(String type) {

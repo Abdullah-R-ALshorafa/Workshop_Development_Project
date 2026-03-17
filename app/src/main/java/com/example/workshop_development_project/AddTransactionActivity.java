@@ -18,10 +18,13 @@ import com.example.workshop_development_project.Model.Categorys;
 import com.example.workshop_development_project.Model.Transactions;
 import com.example.workshop_development_project.databinding.ActivityAddTransactionBinding;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AddTransactionActivity extends AppCompatActivity {
 
@@ -78,7 +81,13 @@ public class AddTransactionActivity extends AppCompatActivity {
             Categorys selectedCategory = categoryList.get(position);
             int categoryId = selectedCategory.getId();
 
-            Date date = new Date();
+            String dateString  = binding.dateEt.getText().toString();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());            Date date = new Date(); // fallback in case parsing fails
+            try {
+                date = sdf.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             Transactions transaction = new Transactions(
                     amount,
@@ -107,8 +116,10 @@ public class AddTransactionActivity extends AppCompatActivity {
                     AddTransactionActivity.this,
                     (view, selectedYear, selectedMonth, selectedDay) -> {
 
-                        String date = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
-
+                        String date = String.format(Locale.getDefault(), "%02d/%02d/%04d",
+                                selectedDay,
+                                selectedMonth + 1,
+                                selectedYear);
                         binding.dateEt.setText(date);
 
                     },

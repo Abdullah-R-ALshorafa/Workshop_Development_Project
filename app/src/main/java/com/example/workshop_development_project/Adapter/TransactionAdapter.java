@@ -11,18 +11,21 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.workshop_development_project.Database.FinanceViewModel;
+import com.example.workshop_development_project.Model.TransactionWithCategory;
 import com.example.workshop_development_project.Model.Transactions;
 import com.example.workshop_development_project.R;
 import com.example.workshop_development_project.databinding.TranscationViewRecyclerBinding;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.ViewHolder> {
 
-    ArrayList<Transactions> transactions;
+    ArrayList<TransactionWithCategory> transactions;
 
-    public TransactionAdapter(ArrayList<Transactions> transactions) {
+    public TransactionAdapter(ArrayList<TransactionWithCategory> transactions) {
         this.transactions = transactions;
     }
 
@@ -39,13 +42,26 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        Transactions t = transactions.get(position);
+        TransactionWithCategory item = transactions.get(position);
 
-        holder.icon.setImageResource(R.drawable.salary_icon);
-        holder.title.setText(String.valueOf(t.getType()));
-        holder.date.setText(String.valueOf(t.getDate()));
-        holder.category.setText(String.valueOf(t.getCategoryId()));
-        holder.amount.setText(String.valueOf(t.getAmount()));
+        Transactions transaction = item.transaction;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(transaction.getDate());
+        String date = calendar.get(Calendar.YEAR) + "/" + (calendar.get(Calendar.MONTH) + 1) + "/" + calendar.get(Calendar.DAY_OF_MONTH);
+        holder.title.setText(String.valueOf(transaction.getType()));
+        holder.date.setText(date);
+        holder.amount.setText(String.valueOf(transaction.getAmount()));
+
+        // show category name
+        holder.category.setText(item.category.getName());
+
+        // show category image
+        if(item.category.getImage() != null){
+            holder.icon.setImageBitmap(item.category.getImage());
+        }else{
+            holder.icon.setImageResource(R.drawable.salary_icon);
+        }
     }
 
     @Override
