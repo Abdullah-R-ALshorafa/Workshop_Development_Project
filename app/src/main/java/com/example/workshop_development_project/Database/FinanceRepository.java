@@ -3,10 +3,6 @@ package com.example.workshop_development_project.Database;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.Query;
-import androidx.room.Update;
 
 import com.example.workshop_development_project.Dao.CategoryDao;
 import com.example.workshop_development_project.Dao.TransactionDao;
@@ -51,6 +47,14 @@ public class FinanceRepository {
             }
         });
     }
+
+    public void deleteAllData() {
+        FinanceRoomDatabase.databaseWriteExecutor.execute(() -> {
+            transactionDao.deleteAllTransactions();
+            categoryDao.deleteAllCategories();
+        });
+    }
+
     LiveData<List<Transactions>> getAllTransaction(){
         return transactionDao.getAllTransaction();
     }
@@ -59,6 +63,30 @@ public class FinanceRepository {
     }
     LiveData<List<TransactionWithCategory>> getTransactionsWithCategory(){
         return transactionDao.getTransactionsWithCategory();
+    }
+
+    public LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryAsc() {
+        return transactionDao.getTransactionsWithCategoryAsc();
+    }
+
+    LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryByType(String type){
+        return transactionDao.getTransactionsWithCategoryByType(type);
+    }
+
+    LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryByTypeAsc(String type) {
+        return transactionDao.getTransactionsWithCategoryByTypeAsc(type);
+    }
+
+    LiveData<List<TransactionWithCategory>> getTransactionsWithCategoryByCategory(int categoryId) {
+        return transactionDao.getTransactionsWithCategoryByCategory(categoryId);
+    }
+
+    LiveData<List<TransactionWithCategory>> getTransactionsByDate(String dateStr) {
+        return transactionDao.getTransactionsByDate(dateStr);
+    }
+
+    LiveData<List<TransactionWithCategory>> searchTransactions(String query) {
+        return transactionDao.searchTransactions(query);
     }
 
     LiveData<List<TransactionWithCategory>> getMonthlyTransactions() {

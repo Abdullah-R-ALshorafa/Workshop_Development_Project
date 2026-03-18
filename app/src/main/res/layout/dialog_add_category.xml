@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Category"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/categoryNameEt"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Category Name"
+        android:inputType="textCapWords"
+        android:background="@drawable/card_corners"
+        android:paddingHorizontal="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Select an Icon"
+        android:textColor="#757575"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/iconsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
+
+            <ImageView
+                android:id="@+id/icon1"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="16dp"
+                android:padding="14dp"
+                android:background="@drawable/notification_shape"
+                android:src="@drawable/salary_icon"
+                android:tag="salary_icon" />
+
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="16dp"
+                android:padding="14dp"
+                android:background="@drawable/notification_shape"
+                android:src="@drawable/groceries_icon"
+                android:tag="groceries_icon" />
+
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="16dp"
+                android:padding="14dp"
+                android:background="@drawable/notification_shape"
+                android:src="@drawable/rent_icon"
+                android:tag="rent_icon" />
+
+            <ImageView
+                android:id="@+id/icon4"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="16dp"
+                android:padding="14dp"
+                android:background="@drawable/notification_shape"
+                android:src="@drawable/food_icon"
+                android:tag="food_icon" />
+
+            <ImageView
+                android:id="@+id/icon5"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginEnd="16dp"
+                android:padding="14dp"
+                android:background="@drawable/notification_shape"
+                android:src="@drawable/car_icon"
+                android:tag="car_icon" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>

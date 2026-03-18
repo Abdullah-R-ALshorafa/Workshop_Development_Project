@@ -8,11 +8,16 @@
     <item
         android:id="@+id/transaction"
         android:icon="@drawable/transactions_icon"
-        android:title="transaction" />
+        android:title="Transaction" />
 
     <item
         android:id="@+id/chars"
         android:icon="@drawable/char_icon"
-        android:title="chars" />
+        android:title="Charts" />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="Settings" />
 
 </menu>

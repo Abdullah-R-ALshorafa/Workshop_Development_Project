@@ -1,15 +1,21 @@
 package com.example.workshop_development_project;
 
 import android.app.DatePickerDialog;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.workshop_development_project.Database.FinanceViewModel;
@@ -33,6 +39,9 @@ public class AddTransactionActivity extends AppCompatActivity {
     FinanceViewModel viewModel;
     ArrayAdapter<String> adapter;
     List<Categorys> categoryList = new ArrayList<>();
+    
+    private int transactionId = -1; // -1 means adding new, otherwise editing
+    private int selectedIconResId = R.drawable.salary_icon; // Default icon
 
 
     @Override
@@ -42,26 +51,43 @@ public class AddTransactionActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(FinanceViewModel.class);
+        
+        // Check if we are in Edit mode
+        if (getIntent().hasExtra("id")) {
+            transactionId = getIntent().getIntExtra("id", -1);
+            binding.saveBtn.setText("Update");
+            loadTransactionData();
+        }
+
         viewModel.getAllCategory().observe(this, categorys -> {
             categoryList = categorys;
-
             List<String> names = new ArrayList<>();
             for (Categorys c : categorys) {
                 names.add(c.getName());
             }
 
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, names);
-
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
             binding.categorySpinner.setAdapter(adapter);
+            
+            // If editing, set the spinner to correct category after list loads
+            if (transactionId != -1) {
+                int categoryId = getIntent().getIntExtra("categoryId", -1);
+                for (int i = 0; i < categoryList.size(); i++) {
+                    if (categoryList.get(i).getId() == categoryId) {
+                        binding.categorySpinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
         });
 
-        binding.saveBtn.setOnClickListener(v -> {
+        binding.addCategoryIv.setOnClickListener(v -> showAddCategoryDialog());
 
+        binding.saveBtn.setOnClickListener(v -> {
             String amountText = binding.amountEt.getText().toString();
             String note = binding.noteEt.getText().toString();
-            String dateText = binding.dateEt.getText().toString();
+            String dateString = binding.dateEt.getText().toString();
 
             if(amountText.isEmpty()){
                 binding.amountEt.setError("Enter amount");
@@ -70,23 +96,21 @@ public class AddTransactionActivity extends AppCompatActivity {
 
             double amount = Double.parseDouble(amountText);
 
-            TransactionType type;
-            if(binding.incomeRb.isChecked()){
-                type = TransactionType.INCOME;
-            }else{
-                type = TransactionType.EXPENSE;
-            }
+            TransactionType type = binding.incomeRb.isChecked() ? TransactionType.INCOME : TransactionType.EXPENSE;
 
             int position = binding.categorySpinner.getSelectedItemPosition();
-            Categorys selectedCategory = categoryList.get(position);
-            int categoryId = selectedCategory.getId();
+            if (position < 0) {
+                Toast.makeText(this, "Please select or add a category", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            int categoryId = categoryList.get(position).getId();
 
-            String dateString  = binding.dateEt.getText().toString();
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());            Date date = new Date(); // fallback in case parsing fails
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            Date date;
             try {
                 date = sdf.parse(dateString);
             } catch (ParseException e) {
-                e.printStackTrace();
+                date = new Date();
             }
 
             Transactions transaction = new Transactions(
@@ -97,40 +121,111 @@ public class AddTransactionActivity extends AppCompatActivity {
                     note
             );
 
-            viewModel.insertTransaction(transaction);
-
-            Toast.makeText(this,"Transaction Added",Toast.LENGTH_SHORT).show();
+            if (transactionId != -1) {
+                transaction.setId(transactionId);
+                viewModel.updateTransaction(transaction);
+                Toast.makeText(this, "Transaction Updated", Toast.LENGTH_SHORT).show();
+            } else {
+                viewModel.insertTransaction(transaction);
+                Toast.makeText(this, "Transaction Added", Toast.LENGTH_SHORT).show();
+            }
 
             finish();
-
         });
 
         binding.dateEt.setOnClickListener(v -> {
             calendar = Calendar.getInstance();
+            // If date exists, set it in picker
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                Date d = sdf.parse(binding.dateEt.getText().toString());
+                if (d != null) calendar.setTime(d);
+            } catch (Exception ignored) {}
 
-            int year = calendar.get(Calendar.YEAR);
-            int month = calendar.get(Calendar.MONTH);
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-
-            DatePickerDialog datePicker = new DatePickerDialog(
-                    AddTransactionActivity.this,
-                    (view, selectedYear, selectedMonth, selectedDay) -> {
-
-                        String date = String.format(Locale.getDefault(), "%02d/%02d/%04d",
-                                selectedDay,
-                                selectedMonth + 1,
-                                selectedYear);
-                        binding.dateEt.setText(date);
-
-                    },
-                    year,
-                    month,
-                    day
-            );
-
-            datePicker.show();
-
+            new DatePickerDialog(this, (view, year, month, day) -> 
+                binding.dateEt.setText(String.format(Locale.getDefault(), "%02d/%02d/%04d", day, month + 1, year))
+            , calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
         });
+    }
 
+    private void showAddCategoryDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_category, null);
+        builder.setView(dialogView);
+
+        EditText nameEt = dialogView.findViewById(R.id.categoryNameEt);
+        LinearLayout iconsContainer = dialogView.findViewById(R.id.iconsContainer);
+        
+        selectedIconResId = R.drawable.salary_icon; // Default
+
+        // Set up icon selection logic
+        for (int i = 0; i < iconsContainer.getChildCount(); i++) {
+            View child = iconsContainer.getChildAt(i);
+            if (child instanceof ImageView) {
+                child.setOnClickListener(v -> {
+                    // Reset backgrounds
+                    for (int j = 0; j < iconsContainer.getChildCount(); j++) {
+                        iconsContainer.getChildAt(j).setBackgroundResource(R.drawable.notification_shape);
+                    }
+                    // Highlight selected
+                    v.setBackgroundResource(R.drawable.grean_dot_shape);
+                    
+                    // Store selection based on tag
+                    String tag = v.getTag().toString();
+                    switch (tag) {
+                        case "salary_icon": selectedIconResId = R.drawable.salary_icon; break;
+                        case "groceries_icon": selectedIconResId = R.drawable.groceries_icon; break;
+                        case "rent_icon": selectedIconResId = R.drawable.rent_icon; break;
+                        case "food_icon": selectedIconResId = R.drawable.food_icon; break;
+                        case "car_icon": selectedIconResId = R.drawable.car_icon; break;
+                    }
+                });
+            }
+        }
+
+        builder.setPositiveButton("Add", (dialog, which) -> {
+            String name = nameEt.getText().toString().trim();
+            if (!name.isEmpty()) {
+                Bitmap icon = getBitmapFromVectorDrawable(selectedIconResId);
+                Categorys newCat = new Categorys(name, ContextCompat.getColor(this, R.color.green), icon);
+                viewModel.insertCategory(newCat);
+                Toast.makeText(this, "Category added", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+
+        builder.show();
+    }
+
+    private Bitmap getBitmapFromVectorDrawable(int drawableId) {
+        Drawable drawable = ContextCompat.getDrawable(this, drawableId);
+        if (drawable == null) return null;
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    private void loadTransactionData() {
+        binding.amountEt.setText(String.valueOf(getIntent().getDoubleExtra("amount", 0.0)));
+        binding.noteEt.setText(getIntent().getStringExtra("note"));
+        
+        long timestamp = getIntent().getLongExtra("date", 0);
+        if (timestamp != 0) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            binding.dateEt.setText(sdf.format(new Date(timestamp)));
+        }
+
+        String type = getIntent().getStringExtra("type");
+        if ("INCOME".equalsIgnoreCase(type)) {
+            binding.incomeRb.setChecked(true);
+        } else {
+            binding.expenseRb.setChecked(true);
+        }
     }
 }
