@@ -169,11 +169,10 @@
                     android:padding="20dp">
 
                     <!-- Savings circle -->
-                    <ImageView
-                        android:id="@+id/savingsIcon"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@drawable/car_icon"
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/miniPieChart"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -184,17 +183,18 @@
                         android:text="Savings\nOn Goals"
                         android:textColor="#000"
                         android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="@+id/savingsIcon"
-                        app:layout_constraintStart_toStartOf="@id/savingsIcon"
-                        app:layout_constraintTop_toBottomOf="@id/savingsIcon" />
+                        android:textAlignment="center"
+                        app:layout_constraintEnd_toEndOf="@+id/miniPieChart"
+                        app:layout_constraintStart_toStartOf="@id/miniPieChart"
+                        app:layout_constraintTop_toBottomOf="@id/miniPieChart" />
 
                     <!-- Divider -->
                     <View
                         android:layout_width="1dp"
                         android:layout_height="120dp"
-                        android:layout_marginStart="24dp"
+                        android:layout_marginStart="16dp"
                         android:background="#BFFFFFFF"
-                        app:layout_constraintStart_toEndOf="@id/savingsIcon"
+                        app:layout_constraintStart_toEndOf="@id/miniPieChart"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <!-- Revenue -->
@@ -202,9 +202,9 @@
                         android:id="@+id/revenueIcon"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginStart="60dp"
+                        android:layout_marginStart="40dp"
                         android:src="@drawable/mony_icon"
-                        app:layout_constraintStart_toEndOf="@id/savingsIcon"
+                        app:layout_constraintStart_toEndOf="@id/miniPieChart"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -221,7 +221,7 @@
                         android:id="@+id/revenueValue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="$4.000.00"
+                        android:text="$4,000.00"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="@id/revenueTitle"
@@ -237,36 +237,36 @@
                         app:layout_constraintStart_toStartOf="@id/revenueTitle"
                         app:layout_constraintTop_toBottomOf="@id/revenueValue" />
 
-                    <!-- Food -->
+                    <!-- last payment -->
                     <ImageView
-                        android:id="@+id/foodIcon"
+                        android:id="@+id/lastExpenseIcon"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="20dp"
-                        android:src="@drawable/food_icon"
+                        android:src="@drawable/expense_arrow"
                         app:layout_constraintStart_toStartOf="@id/revenueIcon"
                         app:layout_constraintTop_toBottomOf="@id/revenueValue" />
 
                     <TextView
-                        android:id="@+id/foodTitle"
+                        android:id="@+id/lastExpenseTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:text="Food Last Week"
+                        android:text="Last Expense"
                         android:textSize="14sp"
-                        app:layout_constraintStart_toEndOf="@id/foodIcon"
-                        app:layout_constraintTop_toTopOf="@id/foodIcon" />
+                        app:layout_constraintStart_toEndOf="@id/lastExpenseIcon"
+                        app:layout_constraintTop_toTopOf="@id/lastExpenseIcon" />
 
                     <TextView
-                        android:id="@+id/foodValue"
+                        android:id="@+id/lastPaymentTv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="-$100.00"
                         android:textColor="#0D6EFD"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@id/foodTitle"
-                        app:layout_constraintTop_toBottomOf="@id/foodTitle" />
+                        app:layout_constraintStart_toStartOf="@id/lastExpenseTitle"
+                        app:layout_constraintTop_toBottomOf="@id/lastExpenseTitle" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

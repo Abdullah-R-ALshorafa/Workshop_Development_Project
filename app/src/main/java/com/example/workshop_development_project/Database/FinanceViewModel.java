@@ -33,6 +33,10 @@ public class FinanceViewModel extends AndroidViewModel {
         repository.deleteTransaction(transaction);
     }
 
+    public void deleteAllData() {
+        repository.deleteAllData();
+    }
+
     public LiveData<List<Transactions>> getAllTransaction() {
         return repository.getAllTransaction();
     }

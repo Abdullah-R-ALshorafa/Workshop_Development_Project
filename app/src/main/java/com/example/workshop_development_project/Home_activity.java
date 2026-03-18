@@ -2,50 +2,66 @@ package com.example.workshop_development_project;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.workshop_development_project.MainScreens.Chares_fragment;
-import com.example.workshop_development_project.MainScreens.Transaction_fragment;
-import com.example.workshop_development_project.MainScreens.home_fragment;
+import com.example.workshop_development_project.Adapter.MainPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home_activity extends AppCompatActivity {
+
+    private ViewPager2 viewPager;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        getSupportFragmentManager().beginTransaction().add(R.id.frame_layout, new home_fragment()).commit();
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        viewPager = findViewById(R.id.view_pager);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        MainPagerAdapter adapter = new MainPagerAdapter(this);
+        viewPager.setAdapter(adapter);
+
+        // Synchronize BottomNavigationView with ViewPager2
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
-            Fragment fragment = null;
-            if (menuItem.getItemId() == R.id.home) {
-                fragment = new home_fragment();
+            int itemId = menuItem.getItemId();
+            if (itemId == R.id.home) {
+                viewPager.setCurrentItem(0, true);
+            } else if (itemId == R.id.transaction) {
+                viewPager.setCurrentItem(1, true);
+            } else if (itemId == R.id.chars) {
+                viewPager.setCurrentItem(2, true);
+            } else if (itemId == R.id.settings) {
+                viewPager.setCurrentItem(3, true);
             }
-
-            if (menuItem.getItemId() == R.id.transaction) {
-                fragment = new Transaction_fragment();
-            }
-
-            if (menuItem.getItemId() == R.id.chars) {
-                fragment = new Chares_fragment();
-            }
-
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.frame_layout, fragment)
-                    .commit();
-
-
-
             return true;
         });
 
+        // Synchronize ViewPager2 with BottomNavigationView (Swipe support)
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                switch (position) {
+                    case 0:
+                        bottomNavigationView.setSelectedItemId(R.id.home);
+                        break;
+                    case 1:
+                        bottomNavigationView.setSelectedItemId(R.id.transaction);
+                        break;
+                    case 2:
+                        bottomNavigationView.setSelectedItemId(R.id.chars);
+                        break;
+                    case 3:
+                        bottomNavigationView.setSelectedItemId(R.id.settings);
+                        break;
+                }
+            }
+        });
+        
+        // Disable swipe if you prefer tab-only navigation:
+        // viewPager.setUserInputEnabled(false);
     }
 }

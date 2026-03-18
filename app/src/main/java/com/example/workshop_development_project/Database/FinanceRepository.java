@@ -47,6 +47,14 @@ public class FinanceRepository {
             }
         });
     }
+
+    public void deleteAllData() {
+        FinanceRoomDatabase.databaseWriteExecutor.execute(() -> {
+            transactionDao.deleteAllTransactions();
+            categoryDao.deleteAllCategories();
+        });
+    }
+
     LiveData<List<Transactions>> getAllTransaction(){
         return transactionDao.getAllTransaction();
     }
