@@ -4,26 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/AppBackgroundColor"
+    android:background="@color/background_main"
     tools:context=".MainScreens.Settings_fragment">
 
     <TextView
         android:id="@+id/settingsTitleTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
-        android:text="Settings"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        style="@style/AppText.ScreenTitle"
+        android:text="@string/settings"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/settingsTitleTv">
 
@@ -31,24 +25,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="@dimen/padding_medium">
 
             <!-- General Settings Section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="General"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:text="@string/general"
                 android:textColor="#757575"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_caption"
                 android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp">
+                android:layout_marginBottom="@dimen/margin_large"
+                app:cardCornerRadius="@dimen/corner_radius_small"
+                app:cardElevation="@dimen/card_elevation_low">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -58,22 +52,15 @@
                     <!-- Currency Setting -->
                     <LinearLayout
                         android:id="@+id/currencySetting"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
+                        style="@style/SettingsItem">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Currency"
+                            android:text="@string/currency"
                             android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/text_size_body" />
 
                         <TextView
                             android:id="@+id/currentCurrencyTv"
@@ -81,7 +68,7 @@
                             android:layout_height="wrap_content"
                             android:text="USD ($)"
                             android:textColor="#16C1A2"
-                            android:textSize="14sp" />
+                            android:textSize="@dimen/text_size_caption" />
                     </LinearLayout>
 
                     <View
@@ -91,19 +78,17 @@
 
                     <!-- Theme Setting -->
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
+                        style="@style/SettingsItem"
+                        android:clickable="false"
+                        android:focusable="false">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Dark Mode"
+                            android:text="@string/dark_mode"
                             android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/text_size_body" />
 
                         <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/themeSwitch"
@@ -120,17 +105,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Data Management"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:text="@string/data_management"
                 android:textColor="#757575"
-                android:textSize="14sp"
+                android:textSize="@dimen/text_size_caption"
                 android:textStyle="bold" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp">
+                app:cardCornerRadius="@dimen/corner_radius_small"
+                app:cardElevation="@dimen/card_elevation_low">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -140,26 +125,20 @@
                     <!-- Add Default Categories -->
                     <LinearLayout
                         android:id="@+id/addDefaultCategoriesBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
+                        style="@style/SettingsItem">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Add Default Categories"
+                            android:text="@string/add_default_categories"
                             android:textColor="@color/black"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/text_size_body" />
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="@dimen/icon_size_small"
+                            android:layout_height="@dimen/icon_size_small"
+                            android:contentDescription="@string/add_default_categories"
                             android:src="@drawable/add_icon"
                             app:tint="#16C1A2" />
                     </LinearLayout>
@@ -172,26 +151,20 @@
                     <!-- Reset All Data -->
                     <LinearLayout
                         android:id="@+id/resetDataBtn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="?attr/selectableItemBackground"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="16dp">
+                        style="@style/SettingsItem">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Reset All Data"
+                            android:text="@string/reset_all_data"
                             android:textColor="#F44336"
-                            android:textSize="16sp" />
+                            android:textSize="@dimen/text_size_body" />
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="@dimen/icon_size_small"
+                            android:layout_height="@dimen/icon_size_small"
+                            android:contentDescription="@string/reset_all_data"
                             android:src="@android:drawable/ic_menu_delete"
                             app:tint="#F44336" />
                     </LinearLayout>
@@ -201,11 +174,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="@dimen/margin_xlarge"
                 android:gravity="center"
-                android:text="App Version 1.0.0"
+                android:text="@string/app_version"
                 android:textColor="#BDBDBD"
-                android:textSize="12sp" />
+                android:textSize="@dimen/text_size_small" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

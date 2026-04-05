@@ -9,46 +9,39 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/AppBackgroundColor">
+        android:background="@color/background_main">
+
         <TextView
             android:id="@+id/welcomeTv"
-            android:layout_width="289dp"
-            android:layout_height="122dp"
-            android:layout_marginTop="123dp"
-            android:text="Welcome to \nExpense Manager"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="30sp"
+            style="@style/AppText.OnboardingTitle"
+            android:layout_marginTop="100dp"
+            android:text="@string/welcome_to_expense_manager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="63dp"
+            android:layout_height="550dp"
+            android:layout_gravity="bottom"
             app:cardBackgroundColor="@android:color/transparent"
-            app:cardElevation="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/welcomeTv">
+            app:cardElevation="@dimen/card_elevation_medium"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="1dp"
                 android:background="@drawable/card_corners"
-                android:orientation="vertical"
-                android:padding="24dp"
-                android:layout_marginHorizontal="1dp">
+                android:padding="@dimen/padding_large">
 
-                <!-- Main Image -->
-
-                <!-- Dots Indicator -->
                 <ImageView
                     android:id="@+id/bordOneIv"
-                    android:layout_width="287dp"
-                    android:layout_height="287dp"
-                    android:layout_marginTop="96dp"
+                    android:layout_width="280dp"
+                    android:layout_height="280dp"
+                    android:layout_marginTop="40dp"
                     android:background="@drawable/onbord_image_shape"
+                    android:contentDescription="@string/welcome_to_expense_manager"
                     android:src="@drawable/bord_one_image"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -66,20 +59,20 @@
                     app:layout_constraintTop_toBottomOf="@id/bordOneIv">
 
                     <View
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/grean_dot_shape" />
 
                     <View
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/dot_shape" />
 
                     <View
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
                         android:background="@drawable/dot_shape" />
                 </LinearLayout>
 
@@ -87,20 +80,15 @@
                     android:id="@+id/buttonLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="32dp"
                     android:orientation="horizontal"
-                    android:padding="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent">
+                    android:paddingHorizontal="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent">
 
                     <Button
                         android:id="@+id/skipBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/light_gray"
-                        android:text="Skip"
-                        android:textColor="@color/black" />
+                        style="@style/AppButton.Secondary"
+                        android:text="@string/skip" />
 
                     <View
                         android:layout_width="0dp"
@@ -109,11 +97,9 @@
 
                     <Button
                         android:id="@+id/nextBtn"
+                        style="@style/AppButton.Primary"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="@color/green"
-                        android:text="Next"
-                        android:textColor="@color/white" />
+                        android:text="@string/next" />
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

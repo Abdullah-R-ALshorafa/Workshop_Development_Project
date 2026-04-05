@@ -2,7 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="AppBackgroundColor">#00D09E</color>
-    <color name="light_gray">#EFFDF1</color>
+
+    <!-- Theme Primary Colors -->
     <color name="green">#00CE9D</color>
+    <color name="green_dark">#009B75</color>
+    <color name="light_gray">#EFFDF1</color>
+
+    <!-- Semantic Colors (Light) -->
+    <color name="background_main">#00D09E</color>
+    <color name="AppBackgroundColor">#F5F5F5</color>
+    <color name="surface_color">#FFFFFF</color>
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#757575</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="divider_color">#EEEEEE</color>
 </resources>
