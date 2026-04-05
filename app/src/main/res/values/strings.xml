@@ -1,5 +1,73 @@
 <resources>
     <string name="app_name">Finance Management</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_back">Hi, Welcome Back</string>
+    <string name="good_morning">Good Morning</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="total_expense">Total Expense</string>
+    <string name="expense_status">✔ 30%% Of Your Expenses, Looks Good.</string>
+    <string name="savings_on_goals">Savings\nOn Goals</string>
+    <string name="revenue_last_week">Revenue Last Week</string>
+    <string name="last_expense">Last Expense</string>
+    <string name="all">All</string>
+    <string name="monthly">Monthly</string>
+    <string name="yearly">Yearly</string>
+    <string name="add_transaction">Add Transaction</string>
+
+    <!-- Navigation -->
+    <string name="home">Home</string>
+    <string name="charts">Charts</string>
+
+    <!-- Transaction Fragment -->
+    <string name="transaction">Transaction</string>
+    <string name="income">Income</string>
+    <string name="expense">Expense</string>
+    <string name="type">Type</string>
+    <string name="category">Category</string>
+    <string name="date">Date</string>
+    <string name="no_transactions_yet">No transactions yet!</string>
+    <string name="search_transactions">Search transactions...</string>
+    <string name="sort_by_date">Sort by Date</string>
+
+    <!-- Add Transaction Activity -->
+    <string name="enter_amount">Enter Amount</string>
+    <string name="select_date">Select Date</string>
+    <string name="note">Note</string>
+    <string name="save_transaction">Save Transaction</string>
+    <string name="new_category">New Category</string>
+    <string name="category_name">Category Name</string>
+    <string name="select_an_icon">Select an Icon</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Transaction Details -->
+    <string name="transaction_details">Transaction Details</string>
+    <string name="no_note_provided">No note provided.</string>
+
+    <!-- Reports -->
+    <string name="reports">Reports</string>
+    <string name="overview">Overview</string>
+    <string name="category_breakdown">Category Breakdown</string>
+    <string name="monthly_trends">Monthly Trends</string>
+
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="general">General</string>
+    <string name="currency">Currency</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="data_management">Data Management</string>
+    <string name="add_default_categories">Add Default Categories</string>
+    <string name="reset_all_data">Reset All Data</string>
+    <string name="app_version">App Version 1.0.0</string>
+
+    <!-- Onboarding -->
+    <string name="welcome_to_expense_manager">Welcome to\nExpense Manager</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="onboarding_title_2">Are you ready to\ntake control of\nyour finances?</string>
+    <string name="onboarding_title_3">Start your journey\nto financial freedom</string>
+    <string name="get_started">Get Started</string>
+
+    <!-- Splash Screen -->
+    <string name="splash_title">Finance Manager</string>
+    <string name="splash_subtitle">Track your income\n&amp; expenses</string>
 </resources>

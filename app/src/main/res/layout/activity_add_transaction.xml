@@ -1,40 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/AppBackgroundColor"
-    android:id="@+id/main">
+    android:background="@color/AppBackgroundColor">
 
     <!-- TITLE -->
 
     <TextView
         android:id="@+id/titleTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Transaction"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginTop="50dp"
-        app:layout_constraintTop_toTopOf="parent"
+        style="@style/AppText.ScreenTitle"
+        android:layout_marginTop="@dimen/splash_top_margin"
+        android:text="@string/add_transaction"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="24dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- AMOUNT -->
 
     <EditText
         android:id="@+id/amountEt"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/card_corners"
-        android:hint="Enter Amount"
+        style="@style/AppInput"
+        android:layout_marginHorizontal="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:hint="@string/enter_amount"
+        android:importantForAutofill="no"
         android:inputType="numberDecimal"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/titleTv"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="24dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTv" />
 
     <!-- TYPE -->
 
@@ -42,11 +36,11 @@
         android:id="@+id/typeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Type"
-        android:textSize="16sp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_large"
+        android:text="@string/type"
+        android:textSize="@dimen/text_size_body"
         app:layout_constraintStart_toStartOf="@id/amountEt"
-        app:layout_constraintTop_toBottomOf="@id/amountEt"/>
+        app:layout_constraintTop_toBottomOf="@id/amountEt" />
 
     <RadioGroup
         android:id="@+id/typeGroup"
@@ -60,13 +54,13 @@
             android:id="@+id/incomeRb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Income"/>
+            android:text="@string/income" />
 
         <RadioButton
             android:id="@+id/expenseRb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Expense"/>
+            android:text="@string/expense" />
     </RadioGroup>
 
     <!-- CATEGORY -->
@@ -74,22 +68,22 @@
         android:id="@+id/categoryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Category"
-        android:textSize="16sp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_large"
+        android:text="@string/category"
+        android:textSize="@dimen/text_size_body"
         app:layout_constraintStart_toStartOf="@id/amountEt"
-        app:layout_constraintTop_toBottomOf="@id/typeGroup"/>
+        app:layout_constraintTop_toBottomOf="@id/typeGroup" />
 
     <LinearLayout
         android:id="@+id/categoryContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_small"
         android:gravity="center_vertical"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@id/categoryTitle"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@id/amountEt"
         app:layout_constraintStart_toStartOf="@id/amountEt"
-        app:layout_constraintEnd_toEndOf="@id/amountEt">
+        app:layout_constraintTop_toBottomOf="@id/categoryTitle">
 
         <Spinner
             android:id="@+id/categorySpinner"
@@ -100,11 +94,12 @@
 
         <ImageView
             android:id="@+id/addCategoryIv"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="8dp"
-            android:padding="8dp"
+            android:layout_width="@dimen/icon_size_large"
+            android:layout_height="@dimen/icon_size_large"
+            android:layout_marginStart="@dimen/margin_small"
             android:background="@drawable/notification_shape"
+            android:contentDescription="@string/new_category"
+            android:padding="@dimen/padding_small"
             android:src="@drawable/add_icon"
             app:tint="#16C1A2" />
     </LinearLayout>
@@ -113,45 +108,42 @@
 
     <EditText
         android:id="@+id/dateEt"
-        android:layout_width="0dp"
+        style="@style/AppInput"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:hint="Select Date"
-        android:focusable="false"
+        android:layout_marginTop="@dimen/margin_large"
         android:clickable="true"
-        android:background="@drawable/card_corners"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/categoryContainer"
-        app:layout_constraintStart_toStartOf="@id/amountEt"
+        android:drawableEnd="@drawable/calenda_add_icon"
+        android:focusable="false"
+        android:hint="@string/select_date"
+        android:importantForAutofill="no"
+        android:inputType="none"
         app:layout_constraintEnd_toEndOf="@id/amountEt"
-        android:drawableEnd="@drawable/calenda_add_icon"/>
+        app:layout_constraintStart_toStartOf="@id/amountEt"
+        app:layout_constraintTop_toBottomOf="@id/categoryContainer" />
 
     <!-- NOTE -->
 
     <EditText
         android:id="@+id/noteEt"
-        android:layout_width="0dp"
+        style="@style/AppInput"
         android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        android:hint="Note"
-        android:background="@drawable/card_corners"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/dateEt"
+        android:layout_marginTop="@dimen/margin_large"
+        android:hint="@string/note"
+        android:importantForAutofill="no"
+        android:inputType="textLongMessage"
+        app:layout_constraintEnd_toEndOf="@id/amountEt"
         app:layout_constraintStart_toStartOf="@id/amountEt"
-        app:layout_constraintEnd_toEndOf="@id/amountEt"/>
+        app:layout_constraintTop_toBottomOf="@id/dateEt" />
 
     <!-- SAVE BUTTON -->
 
     <Button
         android:id="@+id/saveBtn"
-        android:layout_width="0dp"
-        android:layout_height="55dp"
-        android:text="Save Transaction"
-        android:textColor="@android:color/white"
-        android:backgroundTint="#16C1A2"
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/noteEt"
+        style="@style/AppButton.Primary"
+        android:layout_marginTop="@dimen/margin_xlarge"
+        android:text="@string/save_transaction"
+        app:layout_constraintEnd_toEndOf="@id/amountEt"
         app:layout_constraintStart_toStartOf="@id/amountEt"
-        app:layout_constraintEnd_toEndOf="@id/amountEt"/>
+        app:layout_constraintTop_toBottomOf="@id/noteEt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

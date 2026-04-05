@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/AppBackgroundColor"
+    android:background="@color/background_main"
     tools:context=".TransactionDetailActivity">
 
     <View
@@ -16,11 +16,12 @@
 
     <ImageView
         android:id="@+id/backIv"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
-        android:padding="8dp"
+        android:layout_width="@dimen/icon_size_large"
+        android:layout_height="@dimen/icon_size_large"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/icon_size_large"
+        android:contentDescription="@string/all"
+        android:padding="@dimen/padding_small"
         android:src="@drawable/back_arrow_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -30,9 +31,9 @@
         android:id="@+id/detailTitleTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Transaction Details"
+        android:text="@string/transaction_details"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="@dimen/text_size_subtitle"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/backIv"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +43,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="@dimen/margin_medium"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="@id/backIv"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,17 +51,19 @@
 
         <ImageView
             android:id="@+id/deleteIv"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="8dp"
+            android:layout_width="@dimen/icon_size_large"
+            android:layout_height="@dimen/icon_size_large"
+            android:contentDescription="@string/reset_all_data"
+            android:padding="@dimen/padding_small"
             android:src="@android:drawable/ic_menu_delete"
             app:tint="@android:color/white" />
 
         <ImageView
             android:id="@+id/editIv"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:padding="8dp"
+            android:layout_width="@dimen/icon_size_large"
+            android:layout_height="@dimen/icon_size_large"
+            android:contentDescription="@string/add_transaction"
+            android:padding="@dimen/padding_small"
             android:src="@android:drawable/ic_menu_edit"
             app:tint="@android:color/white" />
 
@@ -70,10 +73,10 @@
         android:id="@+id/amountDetailTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/icon_size_medium"
         android:text="$0.00"
         android:textColor="@android:color/white"
-        android:textSize="36sp"
+        android:textSize="@dimen/text_size_amount_large"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,43 +85,45 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="@dimen/corner_radius_large"
         android:layout_marginTop="-40dp"
-        app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
+        app:cardCornerRadius="@dimen/corner_radius_large"
+        app:cardElevation="@dimen/card_elevation_high"
         app:layout_constraintTop_toBottomOf="@id/topView">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="@dimen/padding_large">
 
             <!-- Type -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Type"
+                    android:text="@string/type"
                     android:textColor="#757575"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/text_size_caption" />
+
                 <TextView
                     android:id="@+id/typeDetailTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Income"
+                    android:text="@string/income"
                     android:textColor="#1F1F1F"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_size_body"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginVertical="16dp"
+                android:layout_marginVertical="@dimen/margin_medium"
                 android:background="#EEEEEE" />
 
             <!-- Category -->
@@ -126,26 +131,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Category"
+                    android:text="@string/category"
                     android:textColor="#757575"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/text_size_caption" />
+
                 <TextView
                     android:id="@+id/categoryDetailTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Salary"
                     android:textColor="#1F1F1F"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_size_body"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginVertical="16dp"
+                android:layout_marginVertical="@dimen/margin_medium"
                 android:background="#EEEEEE" />
 
             <!-- Date -->
@@ -153,43 +160,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="Date"
+                    android:text="@string/date"
                     android:textColor="#757575"
-                    android:textSize="14sp" />
+                    android:textSize="@dimen/text_size_caption" />
+
                 <TextView
                     android:id="@+id/dateDetailTv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="May 20, 2024"
                     android:textColor="#1F1F1F"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_size_body"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginVertical="16dp"
+                android:layout_marginVertical="@dimen/margin_medium"
                 android:background="#EEEEEE" />
 
             <!-- Note -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Note"
+                android:text="@string/note"
                 android:textColor="#757575"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_size_caption" />
+
             <TextView
                 android:id="@+id/noteDetailTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="No note provided."
+                android:layout_marginTop="@dimen/margin_small"
+                android:text="@string/no_note_provided"
                 android:textColor="#1F1F1F"
-                android:textSize="16sp" />
+                android:textSize="@dimen/text_size_body" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

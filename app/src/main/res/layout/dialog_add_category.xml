@@ -3,39 +3,40 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="24dp">
+    android:padding="@dimen/padding_large">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Category"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:text="@string/new_category"
         android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
+        android:textSize="@dimen/text_size_subtitle"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/categoryNameEt"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="Category Name"
-        android:inputType="textCapWords"
         android:background="@drawable/card_corners"
-        android:paddingHorizontal="16dp" />
+        android:hint="@string/category_name"
+        android:importantForAutofill="no"
+        android:inputType="textCapWords"
+        android:paddingHorizontal="@dimen/padding_medium" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Select an Icon"
+        android:layout_marginTop="@dimen/margin_large"
+        android:text="@string/select_an_icon"
         android:textColor="#757575"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_size_caption"
         android:textStyle="bold" />
 
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/margin_small"
         android:scrollbars="none">
 
         <LinearLayout
@@ -43,55 +44,60 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingVertical="8dp">
+            android:paddingVertical="@dimen/padding_small">
 
             <ImageView
                 android:id="@+id/icon1"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="16dp"
-                android:padding="14dp"
+                android:layout_width="@dimen/category_icon_size"
+                android:layout_height="@dimen/category_icon_size"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:background="@drawable/notification_shape"
+                android:contentDescription="@string/select_an_icon"
+                android:padding="14dp"
                 android:src="@drawable/salary_icon"
                 android:tag="salary_icon" />
 
             <ImageView
                 android:id="@+id/icon2"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="16dp"
-                android:padding="14dp"
+                android:layout_width="@dimen/category_icon_size"
+                android:layout_height="@dimen/category_icon_size"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:background="@drawable/notification_shape"
+                android:contentDescription="@string/select_an_icon"
+                android:padding="14dp"
                 android:src="@drawable/groceries_icon"
                 android:tag="groceries_icon" />
 
             <ImageView
                 android:id="@+id/icon3"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="16dp"
-                android:padding="14dp"
+                android:layout_width="@dimen/category_icon_size"
+                android:layout_height="@dimen/category_icon_size"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:background="@drawable/notification_shape"
+                android:contentDescription="@string/select_an_icon"
+                android:padding="14dp"
                 android:src="@drawable/rent_icon"
                 android:tag="rent_icon" />
 
             <ImageView
                 android:id="@+id/icon4"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="16dp"
-                android:padding="14dp"
+                android:layout_width="@dimen/category_icon_size"
+                android:layout_height="@dimen/category_icon_size"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:background="@drawable/notification_shape"
+                android:contentDescription="@string/select_an_icon"
+                android:padding="14dp"
                 android:src="@drawable/food_icon"
                 android:tag="food_icon" />
 
             <ImageView
                 android:id="@+id/icon5"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginEnd="16dp"
-                android:padding="14dp"
+                android:layout_width="@dimen/category_icon_size"
+                android:layout_height="@dimen/category_icon_size"
+                android:layout_marginEnd="@dimen/margin_medium"
                 android:background="@drawable/notification_shape"
+                android:contentDescription="@string/select_an_icon"
+                android:padding="14dp"
                 android:src="@drawable/car_icon"
                 android:tag="car_icon" />
 

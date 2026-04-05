@@ -39,7 +39,7 @@ public class AddTransactionActivity extends AppCompatActivity {
     FinanceViewModel viewModel;
     ArrayAdapter<String> adapter;
     List<Categorys> categoryList = new ArrayList<>();
-    
+
     private int transactionId = -1; // -1 means adding new, otherwise editing
     private int selectedIconResId = R.drawable.salary_icon; // Default icon
 
@@ -51,7 +51,7 @@ public class AddTransactionActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         viewModel = new ViewModelProvider(this).get(FinanceViewModel.class);
-        
+
         // Check if we are in Edit mode
         if (getIntent().hasExtra("id")) {
             transactionId = getIntent().getIntExtra("id", -1);
@@ -69,7 +69,7 @@ public class AddTransactionActivity extends AppCompatActivity {
             adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, names);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             binding.categorySpinner.setAdapter(adapter);
-            
+
             // If editing, set the spinner to correct category after list loads
             if (transactionId != -1) {
                 int categoryId = getIntent().getIntExtra("categoryId", -1);
@@ -89,7 +89,7 @@ public class AddTransactionActivity extends AppCompatActivity {
             String note = binding.noteEt.getText().toString();
             String dateString = binding.dateEt.getText().toString();
 
-            if(amountText.isEmpty()){
+            if (amountText.isEmpty()) {
                 binding.amountEt.setError("Enter amount");
                 return;
             }
@@ -140,11 +140,12 @@ public class AddTransactionActivity extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 Date d = sdf.parse(binding.dateEt.getText().toString());
                 if (d != null) calendar.setTime(d);
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
 
-            new DatePickerDialog(this, (view, year, month, day) -> 
-                binding.dateEt.setText(String.format(Locale.getDefault(), "%02d/%02d/%04d", day, month + 1, year))
-            , calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+            new DatePickerDialog(this, (view, year, month, day) ->
+                    binding.dateEt.setText(String.format(Locale.getDefault(), "%02d/%02d/%04d", day, month + 1, year))
+                    , calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
         });
     }
 
@@ -155,7 +156,7 @@ public class AddTransactionActivity extends AppCompatActivity {
 
         EditText nameEt = dialogView.findViewById(R.id.categoryNameEt);
         LinearLayout iconsContainer = dialogView.findViewById(R.id.iconsContainer);
-        
+
         selectedIconResId = R.drawable.salary_icon; // Default
 
         // Set up icon selection logic
@@ -169,15 +170,25 @@ public class AddTransactionActivity extends AppCompatActivity {
                     }
                     // Highlight selected
                     v.setBackgroundResource(R.drawable.grean_dot_shape);
-                    
+
                     // Store selection based on tag
                     String tag = v.getTag().toString();
                     switch (tag) {
-                        case "salary_icon": selectedIconResId = R.drawable.salary_icon; break;
-                        case "groceries_icon": selectedIconResId = R.drawable.groceries_icon; break;
-                        case "rent_icon": selectedIconResId = R.drawable.rent_icon; break;
-                        case "food_icon": selectedIconResId = R.drawable.food_icon; break;
-                        case "car_icon": selectedIconResId = R.drawable.car_icon; break;
+                        case "salary_icon":
+                            selectedIconResId = R.drawable.salary_icon;
+                            break;
+                        case "groceries_icon":
+                            selectedIconResId = R.drawable.groceries_icon;
+                            break;
+                        case "rent_icon":
+                            selectedIconResId = R.drawable.rent_icon;
+                            break;
+                        case "food_icon":
+                            selectedIconResId = R.drawable.food_icon;
+                            break;
+                        case "car_icon":
+                            selectedIconResId = R.drawable.car_icon;
+                            break;
                     }
                 });
             }
@@ -186,7 +197,7 @@ public class AddTransactionActivity extends AppCompatActivity {
         builder.setPositiveButton("Add", (dialog, which) -> {
             String name = nameEt.getText().toString().trim();
             if (!name.isEmpty()) {
-                Bitmap icon = getBitmapFromVectorDrawable(selectedIconResId);
+                Bitmap icon = getBitmapFromDrawable(selectedIconResId);
                 Categorys newCat = new Categorys(name, ContextCompat.getColor(this, R.color.green), icon);
                 viewModel.insertCategory(newCat);
                 Toast.makeText(this, "Category added", Toast.LENGTH_SHORT).show();
@@ -199,7 +210,7 @@ public class AddTransactionActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private Bitmap getBitmapFromVectorDrawable(int drawableId) {
+    private Bitmap getBitmapFromDrawable(int drawableId) {
         Drawable drawable = ContextCompat.getDrawable(this, drawableId);
         if (drawable == null) return null;
 
@@ -214,7 +225,7 @@ public class AddTransactionActivity extends AppCompatActivity {
     private void loadTransactionData() {
         binding.amountEt.setText(String.valueOf(getIntent().getDoubleExtra("amount", 0.0)));
         binding.noteEt.setText(getIntent().getStringExtra("note"));
-        
+
         long timestamp = getIntent().getLongExtra("date", 0);
         if (timestamp != 0) {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

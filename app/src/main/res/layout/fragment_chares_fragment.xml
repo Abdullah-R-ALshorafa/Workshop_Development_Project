@@ -4,19 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/AppBackgroundColor"
+    android:background="@color/background_main"
     tools:context=".MainScreens.Chares_fragment">
 
     <TextView
         android:id="@+id/reportTitleTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="60dp"
-        android:text="Reports"
-        android:textColor="@color/black"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        style="@style/AppText.ScreenTitle"
+        android:text="@string/reports"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,7 +18,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin_medium"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@id/reportTitleTv"
         app:tabIndicatorColor="#16C1A2"
@@ -34,17 +28,17 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Overview" />
+            android:text="@string/overview" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Income" />
+            android:text="@string/income" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Expense" />
+            android:text="@string/expense" />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -57,62 +51,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="@dimen/padding_medium">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                android:layout_marginBottom="16dp">
+                style="@style/AppCard.White"
+                android:layout_marginBottom="@dimen/margin_medium">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/padding_medium">
 
                     <TextView
+                        style="@style/AppText.Body"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Category Breakdown"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
+                        android:text="@string/category_breakdown"
                         android:textStyle="bold" />
 
                     <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/pieChart"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:layout_marginTop="8dp" />
+                        android:layout_marginTop="@dimen/margin_small" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp">
+            <androidx.cardview.widget.CardView style="@style/AppCard.White">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="@dimen/padding_medium">
 
                     <TextView
+                        style="@style/AppText.Body"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Monthly Trends"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
+                        android:text="@string/monthly_trends"
                         android:textStyle="bold" />
 
                     <com.github.mikephil.charting.charts.BarChart
                         android:id="@+id/barChart"
                         android:layout_width="match_parent"
                         android:layout_height="300dp"
-                        android:layout_marginTop="8dp" />
+                        android:layout_marginTop="@dimen/margin_small" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
