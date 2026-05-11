@@ -1,4 +1,4 @@
-package com.example.workshop_development_project;
+package com.example.workshop_development_project.Onboardring;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.workshop_development_project.Onboardring.onBording;
+import com.example.workshop_development_project.R;
 
 public class splash extends AppCompatActivity {
 

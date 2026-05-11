@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view. View;
 import android.view.ViewGroup;
 
+import com.example.workshop_development_project.Home_activity;
 import com.example.workshop_development_project.MainActivity;
 import com.example.workshop_development_project.R;
 import com.example.workshop_development_project.databinding.FragmentOnBordScreen2FragmentBinding;
@@ -64,7 +65,7 @@ public class onBord_screen2_fragment extends Fragment {
             }
         });
         binding.skipBtn.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), MainActivity.class));
+            startActivity(new Intent(getActivity(), Home_activity.class));
             getActivity().finish();
         });
 
